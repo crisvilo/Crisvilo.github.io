@@ -1,0 +1,336 @@
+
+<style>
+:root{--bg:#060f1e;--s1:#0d1b2e;--s2:#132038;--s3:#1a2a47;--b1:rgba(255,255,255,.07);--b2:rgba(255,255,255,.13);--tx:var(--color-text-primary);--tx2:rgba(240,244,255,.55);--tx3:rgba(240,244,255,.28);--g:#00e676;--r:#ff5252;--y:#ffd740;--bl:#448aff;--gd:rgba(0,230,118,.12);--rd:rgba(255,82,82,.13);--bd:rgba(68,138,255,.13);--rad:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+.app{background:var(--bg);border-radius:14px;overflow:hidden;font-family:var(--font-sans);min-height:600px}
+.topbar{background:var(--s1);border-bottom:0.5px solid var(--b2);display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none}
+.topbar::-webkit-scrollbar{display:none}
+.logo{display:flex;align-items:center;gap:7px;padding:.75rem 1rem;flex-shrink:0;border-right:0.5px solid var(--b1)}
+.ldot{width:8px;height:8px;border-radius:50%;background:var(--g)}
+.ltxt{font-size:14px;font-weight:600;color:#fff;white-space:nowrap}
+.navbtn{padding:.75rem .875rem;border:none;background:none;color:var(--tx2);font-size:12px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.12s;flex-shrink:0}
+.navbtn.active{color:var(--g);border-bottom-color:var(--g)}
+.navbtn:hover:not(.active){color:var(--tx)}
+.liveband{background:var(--s1);border-bottom:0.5px solid var(--b1);padding:.45rem .875rem;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;font-size:11px}
+.liveband::-webkit-scrollbar{display:none}
+.liveitem{display:flex;align-items:center;gap:6px;background:var(--rd);border:0.5px solid rgba(255,82,82,.22);border-radius:7px;padding:3px 9px;flex-shrink:0}
+.body{display:flex;min-height:540px}
+.sidebar{width:160px;flex-shrink:0;background:var(--s1);border-right:0.5px solid var(--b1);padding:.75rem 0}
+.lbtn{display:flex;align-items:center;gap:8px;width:100%;padding:.55rem .875rem;border:none;background:none;color:var(--tx2);font-size:12px;cursor:pointer;border-left:2px solid transparent;transition:.12s;text-align:left}
+.lbtn:hover{background:var(--s2);color:var(--tx)}
+.lbtn.active{background:var(--gd);color:var(--g);border-left-color:var(--g)}
+.lico{font-size:15px;width:20px;text-align:center}
+.content{flex:1;padding:.875rem;overflow:hidden}
+.sec{display:none}.sec.active{display:block}
+.ph1{font-size:17px;font-weight:600;color:#fff;margin-bottom:3px}
+.ph2{font-size:11px;color:var(--tx3);margin-bottom:.875rem}
+.stabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:.75rem}
+.stab{padding:5px 13px;border-radius:20px;font-size:11px;font-weight:500;border:0.5px solid var(--b2);background:none;color:var(--tx2);cursor:pointer;transition:.12s}
+.stab.active{background:var(--g);color:#002010;border-color:var(--g)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mcard{background:var(--s2);border:0.5px solid var(--b1);border-radius:var(--rad);padding:.75rem;position:relative;overflow:hidden}
+.mcard.lv{border-left:3px solid var(--r)}
+.mcard-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:700;display:inline-flex;align-items:center;gap:3px}
+.blv{background:var(--rd);color:var(--r)}
+.bfn{background:rgba(255,255,255,.06);color:var(--tx3)}
+.bsc{background:var(--bd);color:var(--bl)}
+.blink{width:5px;height:5px;border-radius:50%;background:var(--r);animation:blink 1.2s infinite;display:inline-block}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+.mt{font-size:10px;color:var(--tx3)}
+.mrow{display:flex;align-items:center;gap:4px}
+.tcol{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.tflag{font-size:20px;line-height:1}
+.tname{font-size:10px;color:var(--tx2);text-align:center;max-width:72px;line-height:1.2}
+.scol{text-align:center;min-width:70px}
+.snums{font-size:24px;font-weight:700;color:#fff;letter-spacing:2px}
+.ssep{color:var(--tx3);font-size:16px}
+.vstxt{font-size:11px;color:var(--tx3);background:var(--s3);padding:3px 9px;border-radius:8px}
+.pbar-w{margin-top:.6rem;padding-top:.6rem;border-top:0.5px solid var(--b1)}
+.pbar{display:flex;height:4px;border-radius:4px;overflow:hidden;gap:2px}
+.ph_{background:var(--g)}.pd_{background:var(--y)}.pa_{background:var(--bl)}
+.plbls{display:flex;justify-content:space-between;margin-top:3px;font-size:9px}
+.shead{display:flex;align-items:center;gap:8px;margin:.875rem 0 .5rem}
+.shead-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;font-weight:600;white-space:nowrap}
+.shead-line{flex:1;height:0.5px;background:var(--b1)}
+.sttable{width:100%;border-collapse:collapse;font-size:11px}
+.sttable th{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.07em;font-weight:600;padding:0 5px 7px;text-align:right}
+.sttable th:first-child{text-align:left}
+.sttable td{padding:7px 5px;border-top:0.5px solid var(--b1);text-align:right;color:var(--tx2)}
+.sttable td:first-child{text-align:left;color:#fff}
+.sttable tr:hover td{background:var(--s3)}
+.tcell{display:flex;align-items:center;gap:5px}
+.rk{font-size:10px;color:var(--tx3);min-width:14px}
+.rk1{color:var(--y)}.rk2{color:rgba(200,200,200,.8)}.rk3{color:#cd7f32}
+.pts{color:#fff;font-weight:600}
+.qcl td{border-left:2px solid var(--g)}.qel td{border-left:2px solid var(--y)}.qrl td{border-left:2px solid var(--r)}
+.gbox{background:var(--s2);border:0.5px solid var(--b1);border-radius:var(--rad);overflow:hidden;margin-bottom:.6rem}
+.gbhd{background:var(--s3);padding:.5rem .75rem;font-size:10px;font-weight:700;color:var(--tx2);letter-spacing:.08em;text-transform:uppercase}
+.spcard{background:var(--s2);border:0.5px solid var(--b1);border-radius:var(--rad);padding:.65rem .75rem;display:flex;align-items:center;gap:9px;margin-bottom:.5rem}
+.sprank{font-size:18px;font-weight:700;color:var(--tx3);min-width:22px}
+.sprank.top{color:var(--y)}
+.spav{width:36px;height:36px;border-radius:50%;background:var(--s3);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.spin{flex:1;min-width:0}
+.spname{font-size:12px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.spteam{font-size:10px;color:var(--tx2);margin-top:2px}
+.spval{font-size:18px;font-weight:700;color:var(--g)}
+.spval.r{color:var(--r)}.spval.y{color:var(--y)}.spval.b{color:var(--bl)}
+.spunit{font-size:9px;color:var(--tx3);text-align:right}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;font-size:10px;color:var(--tx3);margin-top:.6rem}
+.legend span{border-left:2px solid;padding-left:5px}
+</style>
+
+<div class="app">
+<div class="topbar">
+  <div class="logo"><span class="ldot"></span><span class="ltxt">Football Live</span></div>
+  <button class="navbtn active" onclick="goSec('res',this)">⚽ Resultados</button>
+  <button class="navbtn" onclick="goSec('pos',this)">📊 Posiciones</button>
+  <button class="navbtn" onclick="goSec('sta',this)">🏅 Estadísticas</button>
+</div>
+
+<div class="liveband" id="lb"></div>
+
+<div class="body">
+  <div class="sidebar">
+    <button class="lbtn active" onclick="goLeague(this,'wc')"><span class="lico">🏆</span>Mundial</button>
+    <button class="lbtn" onclick="goLeague(this,'epl')"><span class="lico">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>Premier</button>
+    <button class="lbtn" onclick="goLeague(this,'ll')"><span class="lico">🇪🇸</span>La Liga</button>
+    <button class="lbtn" onclick="goLeague(this,'bl')"><span class="lico">🇩🇪</span>Bundesliga</button>
+    <button class="lbtn" onclick="goLeague(this,'sa')"><span class="lico">🇮🇹</span>Serie A</button>
+  </div>
+  <div class="content">
+    <div class="sec active" id="sec-res"><div class="ph1" id="rt"></div><div class="ph2" id="rs"></div><div id="rb"></div></div>
+    <div class="sec" id="sec-pos"><div class="ph1" id="pt"></div><div class="ph2" id="ps"></div><div id="pb"></div></div>
+    <div class="sec" id="sec-sta"><div class="ph1" id="st"></div><div class="ph2" id="ss"></div><div class="stabs" id="stabs"></div><div id="sb"></div></div>
+  </div>
+</div>
+</div>
+
+<script>
+const FL={Argentina:'🇦🇷',Austria:'🇦🇹',Brasil:'🇧🇷',Haití:'🇭🇹',Paraguay:'🇵🇾','Países Bajos':'🇳🇱',Suecia:'🇸🇪',Alemania:'🇩🇪','Costa Marfil':'🇨🇮',Ecuador:'🇪🇨',Japón:'🇯🇵',Túnez:'🇹🇳',España:'🇪🇸','Arabia Saudita':'🇸🇦',Uruguay:'🇺🇾','Cabo Verde':'🇨🇻','Nueva Zelanda':'🇳🇿',Egipto:'🇪🇬',Francia:'🇫🇷',Iraq:'🇮🇶',Noruega:'🇳🇴',Senegal:'🇸🇳',Argelia:'🇩🇿',Portugal:'🇵🇹',Uzbekistán:'🇺🇿',Inglaterra:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',Ghana:'🇬🇭',Panamá:'🇵🇦',Croacia:'🇭🇷',Colombia:'🇨🇴','Congo RD':'🇨🇩',Suiza:'🇨🇭',Canadá:'🇨🇦','Bosnia y Herz.':'🇧🇦',Qatar:'🇶🇦',Escocia:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',Marruecos:'🇲🇦',México:'🇲🇽',Corea:'🇰🇷',Chequia:'🇨🇿','Sudáfrica':'🇿🇦',USA:'🇺🇸',Australia:'🇦🇺',Turquía:'🇹🇷','IR Irán':'🇮🇷',
+Arsenal:'🔴','Man. United':'🔴',Liverpool:'🔴',Chelsea:'🔵','Man. City':'🔵',Tottenham:'⚪','Aston Villa':'🟣',Newcastle:'⚫',Brighton:'🔵',Brentford:'🔴',Everton:'🔵',Fulham:'⚫','Crystal Palace':'🔴','Nott. Forest':'🔴','Hull City':'🟠','Leeds Utd':'⚪',Sunderland:'🔴',Coventry:'🔵',Bournemouth:'🔴',
+'Real Madrid':'⚪','FC Barcelona':'🔵','Atlético Madrid':'🔴','Sevilla FC':'⚪','Athletic Bilbao':'🔴',Villarreal:'🟡','Real Betis':'🟢','Valencia CF':'🟠','Girona FC':'🔴',Espanyol:'🔵','RC Celta Vigo':'🔵','Alavés':'🔵','Rayo Vallecano':'⚪','Real Sociedad':'🔵','CA Osasuna':'🔴','Getafe CF':'🔵','RCD Mallorca':'🔴','Levante UD':'🔴','Elche CF':'🟢','Real Oviedo':'🔵',
+'Bayern Munich':'🔴','Borussia Dortmund':'🟡','RB Leipzig':'🔴','VfB Stuttgart':'⚪','TSG Hoffenheim':'🔵','Bayer Leverkusen':'🔴','SC Freiburg':'⚫','Eintracht Frankfurt':'🔴','FC Augsburg':'🔴','FSV Mainz':'🔴','Union Berlin':'⚫','B. Mönchengladbach':'⚫','Hamburger SV':'⚫','Werder Bremen':'🟢',Wolfsburg:'🟢','FC St. Pauli':'⚫','1.FC Heidenheim':'🔴','SC Paderborn':'🔵','1.FC Cologne':'🟡',
+'Inter Milano':'🔵',Juventus:'⚫','AC Milan':'🔴','SSC Napoli':'🔵','AS Roma':'🔴','Atalanta BC':'⚫',Lazio:'🔵','ACF Fiorentina':'🟣','Torino FC':'🔴','Bologna FC':'🔴','Parma Calcio':'🟡','Venezia FC':'🔵',Udinese:'⚫','Genoa CFC':'🔴',Cagliari:'🔴','US Lecce':'🔴','Como 1907':'🔵',Sassuolo:'🟢','AC Monza':'⚪',Frosinone:'🟡'};
+const f=n=>FL[n]||'🏟️';
+
+const LG={wc:{n:'Mundial 2026',s:'Fase de grupos · Jun 2026'},epl:{n:'Premier League',s:'Temporada 2026/27'},ll:{n:'La Liga',s:'Temporada 2025/26'},bl:{n:'Bundesliga',s:'Temporada 2025/26'},sa:{n:'Serie A',s:'Temporada 2026/27'}};
+
+const M={
+wc:[
+{h:'Argentina',a:'Austria',hs:0,as:0,s:'live',t:'En juego · 12:00 PM'},
+{h:'Francia',a:'Iraq',hs:0,as:0,s:'sched',t:'Hoy · 4:00 PM',ph:90,pd:7,pa:3},
+{h:'Noruega',a:'Senegal',hs:0,as:0,s:'sched',t:'Hoy · 7:00 PM',ph:43,pd:28,pa:29},
+{h:'Colombia',a:'Congo RD',hs:0,as:0,s:'sched',t:'Mar 23 · 9:00 PM',ph:63,pd:23,pa:14},
+{h:'Portugal',a:'Uzbekistán',hs:0,as:0,s:'sched',t:'Mar 23 · 12:00 PM',ph:82,pd:13,pa:6},
+{h:'Inglaterra',a:'Ghana',hs:0,as:0,s:'sched',t:'Mar 23 · 3:00 PM',ph:80,pd:14,pa:7},
+{h:'Brasil',a:'Escocia',hs:0,as:0,s:'sched',t:'Miér 24 · 5:00 PM',ph:70,pd:19,pa:12},
+{h:'Países Bajos',a:'Suecia',hs:5,as:1,s:'final',t:'Sáb Jun 20'},
+{h:'Alemania',a:'Costa Marfil',hs:2,as:1,s:'final',t:'Sáb Jun 20'},
+{h:'España',a:'Arabia Saudita',hs:4,as:0,s:'final',t:'Dom Jun 21'},
+{h:'Uruguay',a:'Cabo Verde',hs:2,as:2,s:'final',t:'Dom Jun 21'},
+{h:'Egipto',a:'Nueva Zelanda',hs:3,as:1,s:'final',t:'Dom Jun 21'},
+{h:'Brasil',a:'Haití',hs:3,as:0,s:'final',t:'Vie Jun 19'},
+{h:'Paraguay',a:'Turquía',hs:1,as:0,s:'final',t:'Vie Jun 19'},
+],
+epl:[
+{h:'Arsenal',a:'Coventry',hs:0,as:0,s:'sched',t:'Vie Ago 21 · 2:00 PM',ph:83,pd:12,pa:5},
+{h:'Hull City',a:'Man. United',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 6:30 AM',ph:14,pd:20,pa:66},
+{h:'Everton',a:'Crystal Palace',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 9:00 AM',ph:46,pd:27,pa:28},
+{h:'Nott. Forest',a:'Leeds Utd',hs:0,as:0,s:'sched',t:'Sáb Ago 22',ph:43,pd:27,pa:30},
+{h:'Brentford',a:'Tottenham',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 11:30 AM',ph:37,pd:26,pa:36},
+{h:'Man. City',a:'Bournemouth',hs:0,as:0,s:'sched',t:'Dom Ago 23 · 8:00 AM',ph:67,pd:18,pa:15},
+{h:'Newcastle',a:'Liverpool',hs:0,as:0,s:'sched',t:'Dom Ago 23 · 10:30 AM',ph:33,pd:24,pa:43},
+{h:'Fulham',a:'Chelsea',hs:0,as:0,s:'sched',t:'Lun Ago 24 · 2:00 PM',ph:31,pd:26,pa:43},
+],
+ll:[
+{h:'Real Madrid',a:'Athletic Bilbao',hs:4,as:2,s:'final',t:'Sáb May 23'},{h:'Valencia CF',a:'FC Barcelona',hs:3,as:1,s:'final',t:'Sáb May 23'},
+{h:'Villarreal',a:'Atlético Madrid',hs:5,as:1,s:'final',t:'Dom May 24'},{h:'Alavés',a:'Rayo Vallecano',hs:1,as:2,s:'final',t:'Sáb May 23'},
+{h:'Real Betis',a:'Levante UD',hs:2,as:1,s:'final',t:'Sáb May 23'},{h:'RC Celta Vigo',a:'Sevilla FC',hs:1,as:0,s:'final',t:'Sáb May 23'},
+{h:'RCD Mallorca',a:'Elche CF',hs:3,as:0,s:'final',t:'Sáb May 23'},{h:'Girona FC',a:'Elche CF',hs:1,as:1,s:'final',t:'Sáb May 23'},
+],
+bl:[
+{h:'SC Freiburg',a:'RB Leipzig',hs:4,as:1,s:'final',t:'May 16'},{h:'B. Mönchengladbach',a:'TSG Hoffenheim',hs:4,as:0,s:'final',t:'May 16'},
+{h:'Union Berlin',a:'FC Augsburg',hs:4,as:0,s:'final',t:'May 16'},{h:'Werder Bremen',a:'Borussia Dortmund',hs:0,as:2,s:'final',t:'May 16'},
+{h:'Bayer Leverkusen',a:'Hamburger SV',hs:1,as:1,s:'final',t:'May 16'},{h:'Eintracht Frankfurt',a:'VfB Stuttgart',hs:2,as:2,s:'final',t:'May 16'},
+{h:'FSV Mainz',a:'1.FC Heidenheim',hs:2,as:0,s:'final',t:'May 16'},{h:'FC St. Pauli',a:'Wolfsburg',hs:1,as:3,s:'final',t:'May 16'},
+],
+sa:[
+{h:'Atalanta BC',a:'Sassuolo',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 8:00 AM',ph:62,pd:22,pa:16},
+{h:'Bologna FC',a:'Lazio',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 8:00 AM',ph:47,pd:28,pa:25},
+{h:'Frosinone',a:'Juventus',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 8:00 AM',ph:14,pd:20,pa:66},
+{h:'Inter Milano',a:'AC Monza',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 8:00 AM',ph:81,pd:13,pa:6},
+{h:'AS Roma',a:'ACF Fiorentina',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 8:00 AM',ph:62,pd:22,pa:15},
+{h:'Torino FC',a:'AC Milan',hs:0,as:0,s:'sched',t:'Sáb Ago 22 · 8:00 AM',ph:21,pd:25,pa:54},
+{h:'Venezia FC',a:'US Lecce',hs:0,as:0,s:'sched',t:'Sáb Ago 22',ph:41,pd:29,pa:30},
+{h:'Udinese',a:'Como 1907',hs:0,as:0,s:'sched',t:'Sáb Ago 22',ph:20,pd:26,pa:55},
+]};
+
+const ST={
+wc:{
+  goles:[{n:'Cody Gakpo',t:'Países Bajos',f:'🇳🇱',v:3},{n:'Kylian Mbappé',t:'Francia',f:'🇫🇷',v:3},{n:'Harry Kane',t:'Inglaterra',f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',v:2},{n:'Erling Haaland',t:'Noruega',f:'🇳🇴',v:2},{n:'Lamine Yamal',t:'España',f:'🇪🇸',v:2},{n:'Julian Alvarez',t:'Argentina',f:'🇦🇷',v:2},{n:'Vinicius Jr.',t:'Brasil',f:'🇧🇷',v:2}],
+  asistencias:[{n:'Kylian Mbappé',t:'Francia',f:'🇫🇷',v:4},{n:'Lionel Messi',t:'Argentina',f:'🇦🇷',v:3},{n:'Bruno Fernandes',t:'Portugal',f:'🇵🇹',v:2},{n:'Lamine Yamal',t:'España',f:'🇪🇸',v:2},{n:'James Rodríguez',t:'Colombia',f:'🇨🇴',v:2}],
+  amarillas:[{n:'Thomas Müller',t:'Alemania',f:'🇩🇪',v:2},{n:'Pepe',t:'Portugal',f:'🇵🇹',v:2},{n:'Rodrigo',t:'España',f:'🇪🇸',v:1},{n:'Alexis Mac Allister',t:'Argentina',f:'🇦🇷',v:1}],
+  rojas:[{n:'Frenkie de Jong',t:'Países Bajos',f:'🇳🇱',v:1},{n:'Ivan Perisic',t:'Croacia',f:'🇭🇷',v:1}],
+  porteros:[{n:'Unai Simón',t:'España',f:'🇪🇸',v:'0',lbl:'Goles recibidos'},{n:'Mike Maignan',t:'Francia',f:'🇫🇷',v:'0',lbl:'Goles recibidos'},{n:'Emiliano Martínez',t:'Argentina',f:'🇦🇷',v:'2',lbl:'Goles recibidos'},{n:'Alisson Becker',t:'Brasil',f:'🇧🇷',v:'1',lbl:'Goles recibidos'}]
+},
+ll:{
+  goles:[{n:'Robert Lewandowski',t:'FC Barcelona',f:'🔵',v:34},{n:'Kylian Mbappé',t:'Real Madrid',f:'⚪',v:31},{n:'Gerard Moreno',t:'Villarreal',f:'🟡',v:22},{n:'Antoine Griezmann',t:'Atlético Madrid',f:'🔴',v:20},{n:'Borja Iglesias',t:'Real Betis',f:'🟢',v:17},{n:'Iago Aspas',t:'RC Celta Vigo',f:'🔵',v:16}],
+  asistencias:[{n:'Pedri',t:'FC Barcelona',f:'🔵',v:18},{n:'Vinicius Jr.',t:'Real Madrid',f:'⚪',v:15},{n:'Gavi',t:'FC Barcelona',f:'🔵',v:13},{n:'Rodrygo',t:'Real Madrid',f:'⚪',v:12},{n:'Alex Baena',t:'Villarreal',f:'🟡',v:11}],
+  amarillas:[{n:'Borja Iglesias',t:'Real Betis',f:'🟢',v:9},{n:'Gabriel Paulista',t:'Valencia CF',f:'🟠',v:9},{n:'Yannick Carrasco',t:'Atlético Madrid',f:'🔴',v:8}],
+  rojas:[{n:'Ronald Araújo',t:'FC Barcelona',f:'🔵',v:2},{n:'Eder Militão',t:'Real Madrid',f:'⚪',v:1},{n:'Savic',t:'Atlético Madrid',f:'🔴',v:1}],
+  porteros:[{n:'Thibaut Courtois',t:'Real Madrid',f:'⚪',v:'92',lbl:'Paradas'},{n:'Giorgi Mamardashvili',t:'Valencia CF',f:'🟠',v:'105',lbl:'Paradas'},{n:'Rui Silva',t:'Real Betis',f:'🟢',v:'88',lbl:'Paradas'}]
+},
+bl:{
+  goles:[{n:'Harry Kane',t:'Bayern Munich',f:'🔴',v:36},{n:'Serhou Guirassy',t:'VfB Stuttgart',f:'⚪',v:28},{n:'Loïs Openda',t:'RB Leipzig',f:'🔴',v:24},{n:'Niclas Füllkrug',t:'Borussia Dortmund',f:'🟡',v:18},{n:'Florian Wirtz',t:'Bayer Leverkusen',f:'🔴',v:17}],
+  asistencias:[{n:'Florian Wirtz',t:'Bayer Leverkusen',f:'🔴',v:22},{n:'Jamal Musiala',t:'Bayern Munich',f:'🔴',v:18},{n:'Thomas Müller',t:'Bayern Munich',f:'🔴',v:15},{n:'Julian Brandt',t:'Borussia Dortmund',f:'🟡',v:14}],
+  amarillas:[{n:'Mats Hummels',t:'Borussia Dortmund',f:'🟡',v:10},{n:'Dayot Upamecano',t:'Bayern Munich',f:'🔴',v:8}],
+  rojas:[{n:'Willi Orban',t:'RB Leipzig',f:'🔴',v:2},{n:'Emre Can',t:'Borussia Dortmund',f:'🟡',v:1}],
+  porteros:[{n:'Manuel Neuer',t:'Bayern Munich',f:'🔴',v:'122',lbl:'Paradas'},{n:'Gregor Kobel',t:'Borussia Dortmund',f:'🟡',v:'108',lbl:'Paradas'},{n:'Peter Gulacsi',t:'RB Leipzig',f:'🔴',v:'96',lbl:'Paradas'}]
+},
+epl:{
+  goles:[{n:'Erling Haaland',t:'Man. City',f:'🔵',v:32},{n:'Mohamed Salah',t:'Liverpool',f:'🔴',v:28},{n:'Bukayo Saka',t:'Arsenal',f:'🔴',v:22},{n:'Cole Palmer',t:'Chelsea',f:'🔵',v:20},{n:'Dominic Solanke',t:'Tottenham',f:'⚪',v:18}],
+  asistencias:[{n:'Kevin De Bruyne',t:'Man. City',f:'🔵',v:18},{n:'Mohamed Salah',t:'Liverpool',f:'🔴',v:17},{n:'Bukayo Saka',t:'Arsenal',f:'🔴',v:15},{n:'Phil Foden',t:'Man. City',f:'🔵',v:14}],
+  amarillas:[{n:'Alexis Mac Allister',t:'Liverpool',f:'🔴',v:10},{n:'Yves Bissouma',t:'Tottenham',f:'⚪',v:9},{n:'Casemiro',t:'Man. United',f:'🔴',v:9}],
+  rojas:[{n:'Casemiro',t:'Man. United',f:'🔴',v:2},{n:'Rodri',t:'Man. City',f:'🔵',v:1}],
+  porteros:[{n:'David Raya',t:'Arsenal',f:'🔴',v:'112',lbl:'Paradas'},{n:'Alisson Becker',t:'Liverpool',f:'🔴',v:'108',lbl:'Paradas'},{n:'Ederson',t:'Man. City',f:'🔵',v:'95',lbl:'Paradas'}]
+},
+sa:{
+  goles:[{n:'Victor Osimhen',t:'SSC Napoli',f:'🔵',v:29},{n:'Lautaro Martínez',t:'Inter Milano',f:'🔵',v:26},{n:'Dusan Vlahovic',t:'Juventus',f:'⚫',v:22},{n:'Rafael Leão',t:'AC Milan',f:'🔴',v:20},{n:'Paulo Dybala',t:'AS Roma',f:'🔴',v:18}],
+  asistencias:[{n:'Nicolò Barella',t:'Inter Milano',f:'🔵',v:14},{n:'Federico Chiesa',t:'Juventus',f:'⚫',v:13},{n:'Christian Pulisic',t:'AC Milan',f:'🔴',v:12}],
+  amarillas:[{n:'Lautaro Martínez',t:'Inter Milano',f:'🔵',v:8},{n:'Adrien Rabiot',t:'Juventus',f:'⚫',v:8}],
+  rojas:[{n:'Nicolò Barella',t:'Inter Milano',f:'🔵',v:1},{n:'Theo Hernández',t:'AC Milan',f:'🔴',v:1}],
+  porteros:[{n:'Mike Maignan',t:'AC Milan',f:'🔴',v:'118',lbl:'Paradas'},{n:'Yann Sommer',t:'Inter Milano',f:'🔵',v:'112',lbl:'Paradas'},{n:'Ivan Provedel',t:'Lazio',f:'🔵',v:'105',lbl:'Paradas'}]
+}};
+
+const POS={
+wc:{type:'g',groups:{A:[{t:'México',f:'🇲🇽',g:2,w:2,d:0,l:0,gf:4,ga:1,p:6},{t:'Corea',f:'🇰🇷',g:2,w:1,d:0,l:1,gf:2,ga:2,p:3},{t:'Chequia',f:'🇨🇿',g:2,w:0,d:1,l:1,gf:1,ga:3,p:1},{t:'Sudáfrica',f:'🇿🇦',g:2,w:0,d:1,l:1,gf:1,ga:2,p:1}],B:[{t:'Canadá',f:'🇨🇦',g:2,w:1,d:1,l:0,gf:3,ga:2,p:4},{t:'Suiza',f:'🇨🇭',g:2,w:1,d:1,l:0,gf:2,ga:1,p:4},{t:'Bosnia y Herz.',f:'🇧🇦',g:2,w:0,d:1,l:1,gf:1,ga:2,p:1},{t:'Qatar',f:'🇶🇦',g:2,w:0,d:1,l:1,gf:0,ga:1,p:1}],C:[{t:'Brasil',f:'🇧🇷',g:2,w:1,d:1,l:0,gf:4,ga:1,p:4},{t:'Marruecos',f:'🇲🇦',g:2,w:1,d:1,l:0,gf:2,ga:1,p:4},{t:'Escocia',f:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',g:2,w:1,d:0,l:1,gf:2,ga:3,p:3},{t:'Haití',f:'🇭🇹',g:2,w:0,d:0,l:2,gf:0,ga:3,p:0}],D:[{t:'USA',f:'🇺🇸',g:2,w:2,d:0,l:0,gf:5,ga:1,p:6},{t:'Australia',f:'🇦🇺',g:2,w:1,d:0,l:1,gf:3,ga:3,p:3},{t:'Paraguay',f:'🇵🇾',g:2,w:1,d:0,l:1,gf:1,ga:2,p:3},{t:'Turquía',f:'🇹🇷',g:2,w:0,d:0,l:2,gf:0,ga:3,p:0}],E:[{t:'Alemania',f:'🇩🇪',g:2,w:2,d:0,l:0,gf:5,ga:2,p:6},{t:'Costa Marfil',f:'🇨🇮',g:2,w:1,d:0,l:1,gf:3,ga:3,p:3},{t:'Ecuador',f:'🇪🇨',g:2,w:0,d:1,l:1,gf:1,ga:3,p:1},{t:'Curazao',f:'🇨🇼',g:2,w:0,d:1,l:1,gf:0,ga:1,p:1}],F:[{t:'Países Bajos',f:'🇳🇱',g:2,w:1,d:1,l:0,gf:6,ga:2,p:4},{t:'Japón',f:'🇯🇵',g:2,w:1,d:1,l:0,gf:5,ga:1,p:4},{t:'Suecia',f:'🇸🇪',g:2,w:1,d:0,l:1,gf:2,ga:5,p:3},{t:'Túnez',f:'🇹🇳',g:2,w:0,d:0,l:2,gf:0,ga:5,p:0}],G:[{t:'Egipto',f:'🇪🇬',g:2,w:1,d:1,l:0,gf:3,ga:1,p:4},{t:'IR Irán',f:'🇮🇷',g:2,w:0,d:2,l:0,gf:0,ga:0,p:2},{t:'Bélgica',f:'🇧🇪',g:2,w:0,d:2,l:0,gf:0,ga:0,p:2},{t:'Nueva Zelanda',f:'🇳🇿',g:2,w:0,d:1,l:1,gf:1,ga:3,p:1}],H:[{t:'España',f:'🇪🇸',g:2,w:1,d:1,l:0,gf:5,ga:1,p:4},{t:'Uruguay',f:'🇺🇾',g:2,w:0,d:2,l:0,gf:2,ga:2,p:2},{t:'Cabo Verde',f:'🇨🇻',g:2,w:0,d:2,l:0,gf:2,ga:2,p:2},{t:'Arabia Saudita',f:'🇸🇦',g:2,w:0,d:1,l:1,gf:0,ga:4,p:1}],I:[{t:'Francia',f:'🇫🇷',g:2,w:2,d:0,l:0,gf:7,ga:0,p:6},{t:'Noruega',f:'🇳🇴',g:1,w:1,d:0,l:0,gf:2,ga:1,p:3},{t:'Senegal',f:'🇸🇳',g:1,w:0,d:0,l:1,gf:1,ga:2,p:0},{t:'Iraq',f:'🇮🇶',g:2,w:0,d:0,l:2,gf:0,ga:7,p:0}],J:[{t:'Argentina',f:'🇦🇷',g:2,w:2,d:0,l:0,gf:6,ga:2,p:6},{t:'Austria',f:'🇦🇹',g:2,w:1,d:0,l:1,gf:3,ga:3,p:3},{t:'Jordania',f:'🇯🇴',g:1,w:0,d:0,l:1,gf:0,ga:2,p:0},{t:'Argelia',f:'🇩🇿',g:1,w:0,d:0,l:1,gf:0,ga:1,p:0}],K:[{t:'Colombia',f:'🇨🇴',g:1,w:1,d:0,l:0,gf:2,ga:0,p:3},{t:'Congo RD',f:'🇨🇩',g:1,w:0,d:1,l:0,gf:0,ga:0,p:1},{t:'Portugal',f:'🇵🇹',g:1,w:0,d:1,l:0,gf:0,ga:0,p:1},{t:'Uzbekistán',f:'🇺🇿',g:1,w:0,d:0,l:1,gf:0,ga:2,p:0}],L:[{t:'Inglaterra',f:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',g:1,w:1,d:0,l:0,gf:3,ga:0,p:3},{t:'Ghana',f:'🇬🇭',g:1,w:1,d:0,l:0,gf:2,ga:1,p:3},{t:'Panamá',f:'🇵🇦',g:1,w:0,d:0,l:1,gf:1,ga:2,p:0},{t:'Croacia',f:'🇭🇷',g:1,w:0,d:0,l:1,gf:0,ga:3,p:0}]}},
+ll:{type:'l',rows:[
+{t:'FC Barcelona',f:'🔵',g:38,w:31,d:1,l:6,gf:102,ga:42,p:94,cl:1},{t:'Real Madrid',f:'⚪',g:38,w:27,d:5,l:6,gf:89,ga:48,p:86,cl:1},
+{t:'Villarreal',f:'🟡',g:38,w:22,d:6,l:10,gf:72,ga:50,p:72,cl:1},{t:'Atlético Madrid',f:'🔴',g:38,w:21,d:6,l:11,gf:68,ga:45,p:69,cl:1},
+{t:'Real Betis',f:'🟢',g:38,w:15,d:15,l:8,gf:55,ga:44,p:60,el:1},{t:'RC Celta Vigo',f:'🔵',g:38,w:14,d:12,l:12,gf:50,ga:50,p:54,el:1},
+{t:'Getafe CF',f:'🔵',g:38,w:15,d:6,l:17,gf:42,ga:52,p:51},{t:'Rayo Vallecano',f:'⚪',g:38,w:12,d:14,l:12,gf:48,ga:50,p:50},
+{t:'Valencia CF',f:'🟠',g:38,w:13,d:10,l:15,gf:52,ga:58,p:49},{t:'Real Sociedad',f:'🔵',g:38,w:11,d:13,l:14,gf:47,ga:53,p:46},
+{t:'Espanyol',f:'🔵',g:38,w:12,d:10,l:16,gf:44,ga:56,p:46},{t:'Athletic Bilbao',f:'🔴',g:38,w:13,d:6,l:19,gf:50,ga:60,p:45},
+{t:'Sevilla FC',f:'⚪',g:38,w:12,d:7,l:19,gf:42,ga:62,p:43},{t:'Alavés',f:'🔵',g:38,w:11,d:10,l:17,gf:38,ga:60,p:43},
+{t:'Elche CF',f:'🟢',g:38,w:10,d:13,l:15,gf:40,ga:55,p:43},{t:'Levante UD',f:'🔴',g:38,w:11,d:9,l:18,gf:45,ga:65,p:42},
+{t:'CA Osasuna',f:'🔴',g:38,w:11,d:9,l:18,gf:40,ga:63,p:42},{t:'RCD Mallorca',f:'🔴',g:38,w:11,d:9,l:18,gf:38,ga:60,p:42},
+{t:'Girona FC',f:'🔴',g:38,w:9,d:14,l:15,gf:44,ga:58,p:41},{t:'Real Oviedo',f:'🔵',g:38,w:6,d:11,l:21,gf:32,ga:75,p:29,rl:1}]},
+bl:{type:'l',rows:[
+{t:'Bayern Munich',f:'🔴',g:34,w:28,d:5,l:1,gf:98,ga:32,p:89,cl:1},{t:'Borussia Dortmund',f:'🟡',g:34,w:22,d:7,l:5,gf:78,ga:42,p:73,cl:1},
+{t:'RB Leipzig',f:'🔴',g:34,w:20,d:5,l:9,gf:68,ga:50,p:65,cl:1},{t:'VfB Stuttgart',f:'⚪',g:34,w:18,d:8,l:8,gf:65,ga:48,p:62,cl:1},
+{t:'TSG Hoffenheim',f:'🔵',g:34,w:18,d:7,l:9,gf:62,ga:50,p:61,el:1},{t:'Bayer Leverkusen',f:'🔴',g:34,w:17,d:8,l:9,gf:60,ga:52,p:59,el:1},
+{t:'SC Freiburg',f:'⚫',g:34,w:13,d:8,l:13,gf:50,ga:52,p:47},{t:'Eintracht Frankfurt',f:'🔴',g:34,w:11,d:11,l:12,gf:48,ga:50,p:44},
+{t:'FC Augsburg',f:'🔴',g:34,w:12,d:7,l:15,gf:45,ga:55,p:43},{t:'FSV Mainz',f:'🔴',g:34,w:10,d:10,l:14,gf:42,ga:52,p:40},
+{t:'Union Berlin',f:'⚫',g:34,w:10,d:9,l:15,gf:40,ga:54,p:39},{t:'B. Mönchengladbach',f:'⚫',g:34,w:9,d:11,l:14,gf:38,ga:52,p:38},
+{t:'Hamburger SV',f:'⚫',g:34,w:9,d:11,l:14,gf:36,ga:50,p:38},{t:'1.FC Cologne',f:'🟡',g:34,w:7,d:11,l:16,gf:34,ga:58,p:32},
+{t:'Werder Bremen',f:'🟢',g:34,w:8,d:8,l:18,gf:38,ga:65,p:32},{t:'Wolfsburg',f:'🟢',g:34,w:7,d:8,l:19,gf:35,ga:68,p:29},
+{t:'1.FC Heidenheim',f:'🔴',g:34,w:6,d:8,l:20,gf:30,ga:72,p:26,rl:1},{t:'FC St. Pauli',f:'⚫',g:34,w:6,d:8,l:20,gf:28,ga:75,p:26,rl:1}]},
+epl:{type:'l',rows:[]},sa:{type:'l',rows:[]}};
+
+const SDEFS=[{k:'goles',l:'⚽ Goleadores',c:''},{k:'asistencias',l:'🎯 Asistencias',c:'b'},{k:'amarillas',l:'🟨 Amarillas',c:'y'},{k:'rojas',l:'🟥 Rojas',c:'r'},{k:'porteros',l:'🧤 Porteros',c:'b'}];
+let CL='wc',CS='res',CT='goles';
+
+function goSec(s,btn){
+  CS=s;
+  document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active'));
+  document.getElementById('sec-'+s).classList.add('active');
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function goLeague(btn,k){
+  CL=k;
+  document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+function goStat(k){
+  CT=k;
+  document.querySelectorAll('.stab').forEach(b=>b.classList.toggle('active',b.dataset.k===k));
+  renderStat();
+}
+function render(){
+  if(CS==='res') renderRes();
+  else if(CS==='pos') renderPos();
+  else renderSta();
+}
+
+function mcard(g){
+  const lv=g.s==='live',fn=g.s==='final';
+  const bdg=lv?`<span class="badge blv"><span class="blink"></span>En vivo</span>`:fn?`<span class="badge bfn">Final</span>`:`<span class="badge bsc">Próximo</span>`;
+  const sc=(lv||fn)?`<div class="snums">${g.hs}<span class="ssep"> – </span>${g.as}</div>`:`<div class="vstxt">vs</div>`;
+  const pb=g.ph?`<div class="pbar-w"><div class="pbar"><div class="ph_" style="flex:${g.ph}"></div><div class="pd_" style="flex:${g.pd}"></div><div class="pa_" style="flex:${g.pa}"></div></div><div class="plbls"><span style="color:var(--g)">${g.h.split(' ')[0]} ${g.ph}%</span><span style="color:var(--y)">Emp. ${g.pd}%</span><span style="color:var(--bl)">${g.a.split(' ')[0]} ${g.pa}%</span></div></div>`:'';
+  return `<div class="mcard${lv?' lv':''}"><div class="mcard-hd">${bdg}<span class="mt">${g.t}</span></div><div class="mrow"><div class="tcol"><div class="tflag">${f(g.h)}</div><div class="tname">${g.h}</div></div><div class="scol">${sc}</div><div class="tcol"><div class="tflag">${f(g.a)}</div><div class="tname">${g.a}</div></div></div>${pb}</div>`;
+}
+
+function renderRes(){
+  const L=LG[CL];
+  document.getElementById('rt').textContent=L.n;
+  document.getElementById('rs').textContent=L.s+' · Hora Colombia';
+  const gs=M[CL]||[];
+  const lv=gs.filter(g=>g.s==='live'),sc=gs.filter(g=>g.s==='sched'),fn=gs.filter(g=>g.s==='final');
+  let h='';
+  if(lv.length) h+=`<div class="shead"><span class="shead-lbl"><span class="blink" style="margin-right:4px"></span>En juego</span><div class="shead-line"></div></div><div class="grid2">${lv.map(mcard).join('')}</div>`;
+  if(sc.length) h+=`<div class="shead"><span class="shead-lbl">Próximos</span><div class="shead-line"></div></div><div class="grid2">${sc.map(mcard).join('')}</div>`;
+  if(fn.length) h+=`<div class="shead"><span class="shead-lbl">Resultados</span><div class="shead-line"></div></div><div class="grid2">${fn.map(mcard).join('')}</div>`;
+  document.getElementById('rb').innerHTML=h||'<p style="color:var(--tx3);padding:1rem 0">Sin partidos</p>';
+}
+
+function renderPos(){
+  const L=LG[CL];
+  document.getElementById('pt').textContent='Tabla — '+L.n;
+  document.getElementById('ps').textContent=L.s;
+  const d=POS[CL];
+  let h='';
+  if(d.type==='g'){
+    for(const[grp,rows] of Object.entries(d.groups)){
+      h+=`<div class="gbox"><div class="gbhd">Grupo ${grp}</div><table class="sttable"><thead><tr><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th style="color:var(--y)">Pts</th></tr></thead><tbody>`;
+      rows.forEach((r,i)=>{h+=`<tr class="${i<2?'qcl':''}"><td><div class="tcell"><span>${r.f}</span>${r.t}</div></td><td>${r.g}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td class="pts">${r.p}</td></tr>`;});
+      h+=`</tbody></table></div>`;
+    }
+    h+=`<div class="legend"><span style="border-color:var(--g)">Clasifican a octavos</span></div>`;
+  } else if(!d.rows||!d.rows.length){
+    h='<p style="color:var(--tx3);padding:1.5rem 0">Temporada aún no iniciada</p>';
+  } else {
+    h=`<div style="background:var(--s2);border:0.5px solid var(--b1);border-radius:var(--rad);overflow:hidden"><table class="sttable"><thead><tr><th style="padding-left:.75rem">Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DG</th><th style="color:var(--y);padding-right:.75rem">Pts</th></tr></thead><tbody>`;
+    d.rows.forEach((r,i)=>{
+      const cls=r.cl?'qcl':r.el?'qel':r.rl?'qrl':'';
+      const rk=i===0?'rk1':i===1?'rk2':i===2?'rk3':'';
+      const dg=r.gf-r.ga;
+      h+=`<tr class="${cls}"><td style="padding-left:.75rem"><div class="tcell"><span class="rk ${rk}">${i+1}</span><span>${r.f}</span>${r.t}</div></td><td>${r.g}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td>${r.gf}</td><td>${r.ga}</td><td style="color:${dg>=0?'var(--g)':'var(--r)'}">${dg>0?'+':''}${dg}</td><td class="pts" style="padding-right:.75rem">${r.p}</td></tr>`;
+    });
+    h+=`</tbody></table></div><div class="legend"><span style="border-color:var(--g)">Champions</span><span style="border-color:var(--y)">Europa League</span><span style="border-color:var(--r)">Descenso</span></div>`;
+  }
+  document.getElementById('pb').innerHTML=h;
+}
+
+function renderSta(){
+  const L=LG[CL];
+  document.getElementById('st').textContent='Estadísticas — '+L.n;
+  document.getElementById('ss').textContent=L.s;
+  document.getElementById('stabs').innerHTML=SDEFS.map(d=>`<button class="stab${CT===d.k?' active':''}" data-k="${d.k}" onclick="goStat('${d.k}')">${d.l}</button>`).join('');
+  renderStat();
+}
+
+function renderStat(){
+  const def=SDEFS.find(d=>d.k===CT);
+  const pl=(ST[CL]||{})[CT]||[];
+  let h='';
+  pl.forEach((p,i)=>{
+    const vc=def.c?` ${def.c}`:'';
+    h+=`<div class="spcard"><div class="sprank${i<3?' top':''}">${i+1}</div><div class="spav">${p.f}</div><div class="spin"><div class="spname">${p.n}</div><div class="spteam">${p.t}</div>${p.lbl?`<div style="font-size:9px;color:var(--tx3);margin-top:2px">${p.lbl}</div>`:''}</div><div style="text-align:right"><div class="spval${vc}">${p.v}</div><div class="spunit">${CT==='goles'?'goles':CT==='asistencias'?'asis.':CT==='porteros'?'':CT==='amarillas'||CT==='rojas'?'tarj.':''}</div></div></div>`;
+  });
+  if(!pl.length) h='<p style="color:var(--tx3);padding:1.5rem 0">Sin datos</p>';
+  document.getElementById('sb').innerHTML=h;
+}
+
+// Live band
+const allLive=Object.values(M).flat().filter(g=>g.s==='live');
+const lb=document.getElementById('lb');
+if(allLive.length){
+  lb.innerHTML=`<span style="font-size:10px;color:var(--tx3);flex-shrink:0">En vivo:</span>`+allLive.map(g=>`<div class="liveitem"><span class="blink"></span><span style="color:var(--tx2)">${f(g.h)} ${g.h}</span><span style="color:#fff;font-weight:700">${g.hs}–${g.as}</span><span style="color:var(--tx2)">${g.a} ${f(g.a)}</span></div>`).join('');
+}else{lb.style.display='none';}
+
+renderRes();
+</script>
