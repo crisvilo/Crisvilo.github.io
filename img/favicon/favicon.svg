@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo redondeado -->
+  <rect x="0" y="0" width="64" height="64" rx="16" fill="url(#bg)"/>
+
+  <!-- Balón -->
+  <g transform="translate(32,32)">
+    <circle r="20" fill="#ffffff"/>
+
+    <!-- Pentágono central -->
+    <polygon points="0,-8 7.6,-2.5 4.7,6.5 -4.7,6.5 -7.6,-2.5"
+             fill="#1f2937"/>
+
+    <!-- Líneas hacia los paneles superiores -->
+    <line x1="0" y1="-8" x2="0" y2="-19" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="7.6" y1="-2.5" x2="17.5" y2="-8.5" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="-7.6" y1="-2.5" x2="-17.5" y2="-8.5" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="4.7" y1="6.5" x2="10" y2="16.5" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/>
+    <line x1="-4.7" y1="6.5" x2="-10" y2="16.5" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/>
+
+    <!-- Contorno del balón -->
+    <circle r="20" fill="none" stroke="#1f2937" stroke-width="1.5"/>
+  </g>
+</svg>
