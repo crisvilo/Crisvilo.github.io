@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Football Europe Live</title>
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="css/styles.css">
+
+</head>
+
+<body>
+
+    <!-- ========================================== -->
+    <!-- HEADER                                     -->
+    <!-- ========================================== -->
+
+    <header class="header">
+
+     <div class="logo">
+
+        <i class="fa-solid fa-futbol"></i>
+
+        <h1>Football Europe Live</h1>
+
+     </div>
+
+    </header>
+    
+
+    <section class="league-filter" id="leagueFilter">
+
+     <button class="league-item active" data-league="PL">
+        <img src="https://cdn.sportmonks.com/images/soccer/leagues/8.png">
+        <span>Premier League</span>
+     </button>
+
+     <button class="league-item" data-league="PD">
+        <img src="https://cdn.sportmonks.com/images/soccer/leagues/564.png">
+        <span>LaLiga</span>
+     </button>
+
+     <button class="league-item" data-league="BL1">
+        <img src="https://cdn.sportmonks.com/images/soccer/leagues/82.png">
+        <span>Bundesliga</span>
+     </button>
+
+     <button class="league-item" data-league="SA">
+        <img src="https://cdn.sportmonks.com/images/soccer/leagues/384.png">
+        <span>Serie A</span>
+     </button>
+
+     <button class="league-item" data-league="FL1">
+        <img src="https://cdn.sportmonks.com/images/soccer/leagues/301.png">
+        <span>Ligue 1</span>
+     </button>
+
+    </section>
+   
+
+
+ 
+
+
+
+    <!-- ========================================== -->
+    <!-- SPINNER                                    -->
+    <!-- ========================================== -->
+
+    <section id="loadingSection"
+             class="loading hidden">
+
+        <div class="spinner"></div>
+
+        <p>
+
+            Actualizando información...
+
+        </p>
+
+    </section>
+
+
+
+    <!-- ========================================== -->
+    <!-- MENSAJE ERROR                              -->
+    <!-- ========================================== -->
+
+    <section id="errorSection"
+             class="error hidden">
+
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <h2>Error</h2>
+
+        <p>
+
+            No fue posible obtener información de la API.
+
+        </p>
+
+    </section>
+
+
+
+    <!-- ========================================== -->
+    <!-- TABS                                       -->
+    <!-- ========================================== -->
+
+    <main class="container">
+
+        <div class="tabs">
+
+          <button class="tab active" data-tab="live">En Vivo</button>
+
+          <button class="tab" data-tab="calendar">Calendario</button>
+
+          <button class="tab" data-tab="standings">Posiciones</button>
+
+         <button class="tab" data-tab="scorers">Goleadores</button>
+
+      </div>
+
+
+
+        <!-- ========================================== -->
+        <!-- CALENDARIO                                -->
+        <!-- ========================================== -->
+
+
+        <section id="live" class="tabContent active">
+
+          <div id="liveMatchesContainer" class="cards">
+
+          </div>
+
+        </section>
+
+        <section id="calendar"
+                 class="tabContent ">
+
+            <div id="matchesContainer"
+                 class="cards">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================== -->
+        <!-- POSICIONES                                -->
+        <!-- ========================================== -->
+
+        <section id="standings"
+                 class="tabContent">
+
+            <div id="standingsContainer">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================== -->
+        <!-- GOLEADORES                                -->
+        <!-- ========================================== -->
+
+        <section id="scorers"
+                 class="tabContent">
+
+            <div id="scorersContainer">
+
+            </div>
+
+        </section>
+
+
+
+     
+
+
+
+        
+
+    </main>
+
+
+
+    <!-- ========================================== -->
+    <!-- FOOTER                                     -->
+    <!-- ========================================== -->
+
+    <footer>
+
+        <p>
+
+            Football Europe Live © 2026
+
+        </p>
+
+        <small>
+
+            Datos proporcionados por Football-Data.org
+
+        </small>
+
+        <p>
+               
+            proyecto realizado por cristian viloria
+
+        </p>
+        
+
+    </footer>
+
+
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT                                 -->
+    <!-- ========================================== -->
+
+    <script src="js/config.js"></script>
+
+    <script src="js/api.js"></script>
+
+    <script src="js/ui.js"></script>
+
+    <script src="js/components.js"></script>
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
