@@ -83,80 +83,56 @@ const UI = {
     }
 
 },
+renderStandings(data) {
 
-    renderStandings(data) {
+    const container = document.getElementById("standingsContainer");
 
-        const container = document.getElementById("standingsContainer");
+    container.innerHTML = "";
 
-        container.innerHTML = "";
+    if (!data.standings) {
+        container.innerHTML = "<h2>No disponible</h2>";
+        return;
+    }
 
-        if (!data.standings) {
+    const table = data.standings.find(s => s.type === "TOTAL");
 
-            container.innerHTML = "<h2>No disponible</h2>";
+    if (!table) {
+        container.innerHTML = "<h2>No disponible</h2>";
+        return;
+    }
 
-            return;
-
-        }
-
-        const table = data.standings.find(
-            s => s.type === "TOTAL"
-        );
-
-        if (!table) {
-
-            container.innerHTML = "<h2>No disponible</h2>";
-
-            return;
-
-        }
-
-        let html = `
+    let html = `
 <div class="table-container">
 
 <table>
 
 <thead>
 
-
-
 <tr>
 
 <th>#</th>
-
 <th>Equipo</th>
-
 <th>PTS</th>
-
 <th>PJ</th>
-
 <th>G</th>
-
 <th>E</th>
-
 <th>P</th>
-
 <th>GF</th>
-
 <th>GC</th>
-
 <th>DG</th>
 
 </tr>
 
 </thead>
-</table>
-
 
 <tbody>
 `;
 
-        table.table.forEach(team => {
+    table.table.forEach(team => {
+        html += createStandingRow(team);
+    });
 
-            html += createStandingRow(team);
-
-        });
-
-        html += `
+    html += `
 </tbody>
 
 </table>
@@ -164,10 +140,9 @@ const UI = {
 </div>
 `;
 
-        container.innerHTML = html;
+    container.innerHTML = html;
 
-    },
-
+},
     renderScorers(data) {
 
         const container = document.getElementById("scorersContainer");
