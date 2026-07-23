@@ -533,35 +533,39 @@ footer small{
     display:grid;
 
     grid-template-columns:
-    repeat(auto-fill,minmax(260px,1fr));  /* antes: 360px */
+    repeat(auto-fill,minmax(300px,1fr));  
 
-    gap:18px;  /* antes: 25px */
+    gap:18px; 
 
 }
 
 .match-card{
 
-    padding:16px;  /* antes: 25px */
+    padding:18px;  
 
 }
 
 .team-logo{
 
-    width:45px;   /* antes: 65px */
+    width:45px;
 
     height:45px;
+
+    flex-shrink:0; 
 
 }
 
 .team h3{
 
-    font-size:13px;  /* antes: 15px */
+    font-size:12.5px;
+    line-height:1.3;
+    word-break: break-word;  
 
 }
 
 .score{
 
-    font-size:24px;  /* antes: 34px */
+    font-size:24px; 
 
     min-width:70px;
 }
@@ -629,7 +633,8 @@ footer small{
 
     justify-content:space-between;
 
-    align-items:center;
+    align-items:flex-start;
+    gap: 10px;
 
 }
 
@@ -641,7 +646,9 @@ footer small{
 
     align-items:center;
 
-    width:40%;
+    width:32%;
+
+    min-width:0;
 
 }
 
@@ -657,12 +664,21 @@ footer small{
 
 .team h3{
 
-    margin-top:10px;
+    margin-top:8px;
 
-    font-size:15px;
+    font-size:12px;
+
+    line-height:1.35;
 
     text-align:center;
 
+    overflow-wrap:break-word;
+
+    word-break:break-word;
+
+    hyphens:auto;
+
+    white-space:normal; 
 }
 
 .score{
