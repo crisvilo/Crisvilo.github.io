@@ -11,10 +11,13 @@
     <title>Football Europe Live</title>
 
     <!-- Google Fonts -->
+   
 
     <link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32.png">
     <link rel="apple-touch-icon" href="img/favicon/favicon-180.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2563eb">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -81,6 +84,11 @@
      <button class="league-item" data-league="FL1">
         <img src="https://cdn.sportmonks.com/images/soccer/leagues/301.png">
         <span>Ligue 1</span>
+     </button>
+
+     <button class="league-item" data-league="CL">
+        <img src="https://cdn.sportmonks.com/images/soccer/leagues/2.png">
+        <span>Champions League</span>
      </button>
 
     </section>
@@ -258,6 +266,17 @@
     <script src="js/components.js"></script>
 
     <script src="js/app.js"></script>
+     
+    <script>
+       if ("serviceWorker" in navigator) {
+          window.addEventListener("load", () => {
+            navigator.serviceWorker
+                .register("sw.js")
+                .then(() => console.log("Service Worker registrado"))
+                .catch((err) => console.error("Error registrando SW:", err));
+           });
+        }
+    </script>
 
 </body>
 
