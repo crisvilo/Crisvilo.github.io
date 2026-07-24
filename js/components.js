@@ -233,7 +233,8 @@ ${team.team.name}
 `;
 
 }
-function createScorerRow(player,pos){
+
+function createScorerRow(player, pos){
 
 return`
 
@@ -251,9 +252,20 @@ ${player.player.name}
 
 </td>
 
-<td>
+<td class="team-cell">
+
+<img
+class="team-logo-small"
+src="${player.team.crest}"
+alt="${player.team.name}"
+loading="lazy"
+onerror="this.style.display='none';">
+
+<span>
 
 ${player.team.name}
+
+</span>
 
 </td>
 
