@@ -36,6 +36,105 @@
 
 }
 
+[data-theme="dark"]{
+
+    --background:#0f172a;
+    --surface:#1e293b;
+
+    --text:#f1f5f9;
+    --text-light:#94a3b8;
+
+    --border:#334155;
+
+}
+
+[data-theme="dark"] body{
+
+    background:var(--background);
+    color:var(--text);
+
+}
+
+[data-theme="dark"] .header,
+[data-theme="dark"] .match-card,
+[data-theme="dark"] .table-container,
+[data-theme="dark"] .league-item,
+[data-theme="dark"] .tab,
+[data-theme="dark"] footer{
+
+    background:var(--surface);
+    color:var(--text);
+
+}
+
+[data-theme="dark"] tbody td{
+
+    border-bottom-color:var(--border);
+    color:var(--text);
+
+}
+
+[data-theme="dark"] .controls select{
+
+    background:var(--surface);
+    color:var(--text);
+
+}
+
+.theme-toggle{
+
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:1100;
+
+    background:var(--surface);
+    border:2px solid var(--border);
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    color:var(--text);
+    box-shadow:var(--shadow);
+    transition:.25s;
+
+}
+
+.theme-toggle:hover{
+
+    background:var(--primary);
+    color:white;
+    border-color:var(--primary);
+    transform:scale(1.08);
+
+}
+
+.theme-toggle:active{
+
+    transform:scale(.95);
+
+}
+
+@media (max-width:768px){
+
+    .theme-toggle{
+
+        top:14px;
+        right:14px;
+        width:40px;
+        height:40px;
+        font-size:15px;
+
+    }
+
+}
+
+
+
 
 /* ==========================
    RESET
@@ -1135,6 +1234,8 @@ tbody tr:last-child td{
 
         flex-direction:column;
 
+        align-items: center;
+
         gap:18px;
 
     }
@@ -1148,6 +1249,10 @@ tbody tr:last-child td{
     .score{
 
         font-size:40px;
+
+        text-align:center;
+
+        width:100%;
 
     }
 
