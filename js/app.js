@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 async function init(){
 
     initializeTabs();
-
     initializeEvents();
 
     await loadLeague(currentLeague);
@@ -63,6 +62,7 @@ function initializeEvents(){
     });
 
 }
+
 /*=========================================
         AUTO REFRESH
 =========================================*/
