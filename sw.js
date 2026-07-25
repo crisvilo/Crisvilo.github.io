@@ -1,4 +1,4 @@
-const CACHE_NAME = "football-europe-live-v2";
+const CACHE_NAME = "football-europe-live-v3";
 
 const STATIC_ASSETS = [
     "./index.html",
@@ -7,8 +7,10 @@ const STATIC_ASSETS = [
     "./js/api.js",
     "./js/components.js",
     "./js/app.js",
+    "./js/theme.js",
     "./js/ui.js",
     "./manifest.json",
+    
     "./img/favicon/favicon.svg",
     "./img/favicon/icon-192.png",
     "./img/favicon/icon-512.png"
