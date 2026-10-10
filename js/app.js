@@ -61,6 +61,22 @@ function initializeEvents(){
 
     });
 
+    const refreshBtn = document.getElementById("refreshBtn");
+
+    if(refreshBtn){
+
+        refreshBtn.addEventListener("click", async () => {
+
+            refreshBtn.classList.add("spinning");
+
+            await loadLeague(currentLeague, true);
+
+            refreshBtn.classList.remove("spinning");
+
+        });
+
+    }
+
 }
 
 /*=========================================
@@ -96,6 +112,8 @@ async function loadLeague(code, silent = false){
 
         UI.hideError();
 
+        UI.setLeagueTitle(code);
+
         const [
 
             matches,
@@ -119,6 +137,10 @@ async function loadLeague(code, silent = false){
         UI.renderStandings(standings);
 
         UI.renderScorers(scorers);
+
+        UI.renderStats(matches, standings, scorers);
+
+        UI.setLastUpdate();
 
         if(!silent){
             UI.hideLoading();

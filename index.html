@@ -4,282 +4,245 @@
 <head>
 
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Football Europe Live</title>
-
-    <!-- Google Fonts -->
-   
 
     <link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32.png">
     <link rel="apple-touch-icon" href="img/favicon/favicon-180.png">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#2563eb">
+    <meta name="theme-color" content="#0b0d12">
 
+    <!-- Aplicar tema antes de pintar (evita parpadeo) -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem("theme-preference") ||
+                    (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+                document.documentElement.setAttribute("data-theme", t);
+            } catch (e) {}
+        })();
+    </script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <!-- CSS -->
-
-    <link rel="stylesheet"
-          href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 
 </head>
 
 <body>
 
-    <!-- ========================================== -->
-    <!-- HEADER                                     -->
-    <!-- ========================================== -->
-
-    <header class="header">
-
-     <div class="logo">
-
-        <i class="fa-solid fa-futbol"></i>
-
-        <h1>Football Europe Live</h1>
-
-     </div>
-
-     <button id="themeToggle" class="theme-toggle" arial-label="Cambiar tema">
-        <i class="fa-solid fa-moon"></i>
-     </button>
-
-    </header>
-    
-
-    <section class="league-filter" id="leagueFilter">
-
-     <button class="league-item active" data-league="PL">
-        <img src="https://cdn.sportmonks.com/images/soccer/leagues/8.png">
-        <span>Premier League</span>
-     </button>
-
-     <button class="league-item" data-league="PD">
-        <img src="https://cdn.sportmonks.com/images/soccer/leagues/564.png">
-        <span>LaLiga</span>
-     </button>
-
-     <button class="league-item" data-league="BL1">
-        <img src="https://cdn.sportmonks.com/images/soccer/leagues/82.png">
-        <span>Bundesliga</span>
-     </button>
-
-     <button class="league-item" data-league="SA">
-        <img src="https://cdn.sportmonks.com/images/soccer/leagues/384.png">
-        <span>Serie A</span>
-     </button>
-
-     <button class="league-item" data-league="FL1">
-        <img src="https://cdn.sportmonks.com/images/soccer/leagues/301.png">
-        <span>Ligue 1</span>
-     </button>
-
-     <button class="league-item" data-league="CL">
-        <img src="https://cdn.sportmonks.com/images/soccer/leagues/2.png">
-        <span>Champions League</span>
-     </button>
-
-    </section>
-   
-
-
- 
-
-
-
-    <!-- ========================================== -->
-    <!-- SPINNER                                    -->
-    <!-- ========================================== -->
-
-    <section id="loadingSection"
-             class="loading hidden">
-
-        <div class="spinner"></div>
-
-        <p>
-
-            Actualizando información...
-
-        </p>
-
-    </section>
-
-
-
-    <!-- ========================================== -->
-    <!-- MENSAJE ERROR                              -->
-    <!-- ========================================== -->
-
-    <section id="errorSection"
-             class="error hidden">
-
-        <i class="fa-solid fa-circle-exclamation"></i>
-
-        <h2>Error</h2>
-
-        <p>
-
-            No fue posible obtener información de la API.
-
-        </p>
-
-    </section>
-
-
-
-    <!-- ========================================== -->
-    <!-- TABS                                       -->
-    <!-- ========================================== -->
-
-    <main class="container">
-
-        <div class="tabs">
-
-          <button class="tab active" data-tab="live">En Vivo</button>
-
-          <button class="tab" data-tab="calendar">Calendario</button>
-
-          <button class="tab" data-tab="standings">Posiciones</button>
-
-         <button class="tab" data-tab="scorers">Goleadores</button>
-
-      </div>
-
-
+    <div class="app">
 
         <!-- ========================================== -->
-        <!-- CALENDARIO                                -->
+        <!-- SIDEBAR                                    -->
         <!-- ========================================== -->
 
+        <aside class="sidebar">
 
-        <section id="live" class="tabContent active">
-
-          <div id="liveMatchesContainer" class="cards">
-
-          </div>
-
-        </section>
-
-        <section id="calendar"
-                 class="tabContent ">
-
-            <div id="matchesContainer"
-                 class="cards">
-
+            <div class="logo">
+                <div class="logo-mark">
+                    <i class="fa-solid fa-futbol"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Football Europe</h1>
+                    <span>Live dashboard</span>
+                </div>
             </div>
 
-        </section>
+            <p class="sidebar-label">Competiciones</p>
 
+            <nav class="league-filter" id="leagueFilter">
 
+                <button class="league-item active" data-league="PL">
+                    <span class="league-icon"><img src="https://cdn.sportmonks.com/images/soccer/leagues/8.png" alt=""></span>
+                    <span class="league-name">Premier League</span>
+                    <span class="league-flag">ENG</span>
+                </button>
 
-        <!-- ========================================== -->
-        <!-- POSICIONES                                -->
-        <!-- ========================================== -->
+                <button class="league-item" data-league="PD">
+                    <span class="league-icon"><img src="https://cdn.sportmonks.com/images/soccer/leagues/564.png" alt=""></span>
+                    <span class="league-name">LaLiga</span>
+                    <span class="league-flag">ESP</span>
+                </button>
 
-        <section id="standings"
-                 class="tabContent">
+                <button class="league-item" data-league="BL1">
+                    <span class="league-icon"><img src="https://cdn.sportmonks.com/images/soccer/leagues/82.png" alt=""></span>
+                    <span class="league-name">Bundesliga</span>
+                    <span class="league-flag">GER</span>
+                </button>
 
-            <div id="standingsContainer">
+                <button class="league-item" data-league="SA">
+                    <span class="league-icon"><img src="https://cdn.sportmonks.com/images/soccer/leagues/384.png" alt=""></span>
+                    <span class="league-name">Serie A</span>
+                    <span class="league-flag">ITA</span>
+                </button>
 
+                <button class="league-item" data-league="FL1">
+                    <span class="league-icon"><img src="https://cdn.sportmonks.com/images/soccer/leagues/301.png" alt=""></span>
+                    <span class="league-name">Ligue 1</span>
+                    <span class="league-flag">FRA</span>
+                </button>
+
+                <button class="league-item" data-league="CL">
+                    <span class="league-icon"><img src="https://cdn.sportmonks.com/images/soccer/leagues/2.png" alt=""></span>
+                    <span class="league-name">Champions League</span>
+                    <span class="league-flag">UEFA</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sync-card">
+                    <span class="pulse-dot"></span>
+                    <div>
+                        <strong>Auto-sync activo</strong>
+                        <small id="lastUpdate">Esperando datos…</small>
+                    </div>
+                </div>
             </div>
 
-        </section>
-
-
+        </aside>
 
         <!-- ========================================== -->
-        <!-- GOLEADORES                                -->
+        <!-- MAIN                                       -->
         <!-- ========================================== -->
 
-        <section id="scorers"
-                 class="tabContent">
+        <div class="main">
 
-            <div id="scorersContainer">
+            <header class="topbar">
 
-            </div>
+                <div class="topbar-title">
+                    <span class="breadcrumb">Dashboard <i class="fa-solid fa-chevron-right"></i> Ligas</span>
+                    <h2 id="leagueTitle">Premier League</h2>
+                </div>
 
-        </section>
+                <div class="topbar-actions">
+                    <button id="refreshBtn" class="icon-btn" aria-label="Actualizar">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                    <button id="themeToggle" class="icon-btn theme-toggle" aria-label="Cambiar tema">
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
+                </div>
 
+            </header>
 
+            <main class="container">
 
-     
+                <!-- Stats (bento) -->
+                <section class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon live-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+                        <div>
+                            <p>En vivo</p>
+                            <h3 id="statLive">–</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-regular fa-calendar"></i></div>
+                        <div>
+                            <p>Jornada actual</p>
+                            <h3 id="statMatchday">–</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-crown"></i></div>
+                        <div>
+                            <p>Líder</p>
+                            <h3 id="statLeader">–</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa-solid fa-bullseye"></i></div>
+                        <div>
+                            <p>Pichichi</p>
+                            <h3 id="statScorer">–</h3>
+                        </div>
+                    </div>
+                </section>
 
+                <!-- Tabs (segmented control) -->
+                <div class="tabs" role="tablist">
+                    <button class="tab active" data-tab="live"><i class="fa-solid fa-circle live-dot"></i> En Vivo</button>
+                    <button class="tab" data-tab="calendar"><i class="fa-regular fa-calendar"></i> Calendario</button>
+                    <button class="tab" data-tab="standings"><i class="fa-solid fa-list-ol"></i> Posiciones</button>
+                    <button class="tab" data-tab="scorers"><i class="fa-solid fa-futbol"></i> Goleadores</button>
+                </div>
 
+                <!-- Spinner -->
+                <section id="loadingSection" class="loading hidden">
+                    <div class="skeleton-grid">
+                        <div class="skeleton"></div>
+                        <div class="skeleton"></div>
+                        <div class="skeleton"></div>
+                    </div>
+                    <p>Actualizando información…</p>
+                </section>
 
-        
+                <!-- Error -->
+                <section id="errorSection" class="error hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <div>
+                        <h2>Error de conexión</h2>
+                        <p>No fue posible obtener información de la API.</p>
+                    </div>
+                </section>
 
-    </main>
+                <section id="live" class="tabContent active">
+                    <div id="liveMatchesContainer" class="cards"></div>
+                </section>
 
+                <section id="calendar" class="tabContent">
+                    <div id="matchesContainer" class="cards"></div>
+                </section>
 
+                <section id="standings" class="tabContent">
+                    <div id="standingsContainer"></div>
+                </section>
 
-    <!-- ========================================== -->
-    <!-- FOOTER                                     -->
-    <!-- ========================================== -->
+                <section id="scorers" class="tabContent">
+                    <div id="scorersContainer"></div>
+                </section>
 
-    <footer>
+            </main>
 
-        <p>
+            <footer>
+                <p>Football Europe Live © 2026 · Proyecto realizado por Cristian Viloria</p>
+                <small>Datos proporcionados por sportmonks-football-API</small>
+            </footer>
 
-            Football Europe Live © 2026
+        </div>
 
-        </p>
-
-        <small>
-
-            Datos proporcionados por sportmonks-football-API
-
-        </small>
-
-        <p>
-               
-            proyecto realizado por cristian viloria
-
-        </p>
-        
-
-    </footer>
-
-
+    </div>
 
     <!-- ========================================== -->
     <!-- JAVASCRIPT                                 -->
     <!-- ========================================== -->
 
     <script src="js/config.js"></script>
-
     <script src="js/api.js"></script>
-
     <script src="js/ui.js"></script>
-
     <script src="js/components.js"></script>
-
     <script src="js/app.js"></script>
     <script src="js/theme.js"></script>
-     
+
     <script>
-       if ("serviceWorker" in navigator) {
-          window.addEventListener("load", () => {
-            navigator.serviceWorker
-                .register("sw.js")
-                .then(() => console.log("Service Worker registrado"))
-                .catch((err) => console.error("Error registrando SW:", err));
-           });
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("sw.js")
+                    .then(() => console.log("Service Worker registrado"))
+                    .catch((err) => console.error("Error registrando SW:", err));
+            });
         }
     </script>
 
