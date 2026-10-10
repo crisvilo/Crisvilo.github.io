@@ -5,195 +5,156 @@
 const UI = {
 
     showLoading() {
-
-        document
-            .getElementById("loadingSection")
-            .classList.remove("hidden");
-
+        document.getElementById("loadingSection").classList.remove("hidden");
     },
 
     hideLoading() {
-
-        document
-            .getElementById("loadingSection")
-            .classList.add("hidden");
-
+        document.getElementById("loadingSection").classList.add("hidden");
     },
 
     showError() {
-
-        document
-            .getElementById("errorSection")
-            .classList.remove("hidden");
-
+        document.getElementById("errorSection").classList.remove("hidden");
     },
 
     hideError() {
-
-        document
-            .getElementById("errorSection")
-            .classList.add("hidden");
-
+        document.getElementById("errorSection").classList.add("hidden");
     },
 
-      renderMatches(matches) {
+    setLeagueTitle(code) {
+        const el = document.getElementById("leagueTitle");
+        if (el) el.textContent = CONFIG.LEAGUES[code] || code;
+    },
 
-    const calendarContainer = document.getElementById("matchesContainer");
-    const liveContainer = document.getElementById("liveMatchesContainer");
+    setLastUpdate() {
+        const el = document.getElementById("lastUpdate");
+        if (!el) return;
+        const now = new Date();
+        el.textContent = `Actualizado ${now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}`;
+    },
 
-    calendarContainer.innerHTML = "";
-    liveContainer.innerHTML = "";
+    setText(id, value) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.textContent = value;
+            el.title = value;
+        }
+    },
 
-    if (!matches || matches.length === 0) {
+    renderStats(matches, standings, scorers) {
 
-        calendarContainer.innerHTML = `<h2>No hay partidos.</h2>`;
-        liveContainer.innerHTML = `<h2>No hay partidos en vivo.</h2>`;
+        const liveStates = ["LIVE", "IN_PLAY", "PAUSED"];
+        const list = (matches && matches.matches) || [];
 
-        return;
+        this.setText("statLive", String(list.filter(m => liveStates.includes(m.status)).length));
 
-    }
+        const matchday = list.length && list[0].season ? list[0].season.currentMatchday : null;
+        this.setText("statMatchday", matchday ? `#${matchday}` : "–");
 
-    const liveStates = ["LIVE", "IN_PLAY", "PAUSED"];
+        const total = standings && standings.standings
+            ? standings.standings.find(s => s.type === "TOTAL")
+            : null;
+        const leader = total && total.table && total.table[0];
+        this.setText("statLeader", leader ? (leader.team.shortName || leader.team.name) : "–");
 
-    const liveMatches = matches.filter(m => liveStates.includes(m.status));
-    const otherMatches = matches.filter(m => !liveStates.includes(m.status));
+        const top = scorers && scorers.scorers && scorers.scorers[0];
+        this.setText("statScorer", top ? `${top.player.name} · ${top.goals}` : "–");
+    },
 
-    if (liveMatches.length === 0) {
+    renderMatches(matches) {
 
-        liveContainer.innerHTML = `<h2>No hay partidos en vivo en este momento.</h2>`;
+        const calendarContainer = document.getElementById("matchesContainer");
+        const liveContainer = document.getElementById("liveMatchesContainer");
 
-    } else {
+        if (!matches || matches.length === 0) {
+            calendarContainer.innerHTML = emptyState("fa-regular fa-calendar-xmark", "No hay partidos.");
+            liveContainer.innerHTML = emptyState("fa-solid fa-tower-broadcast", "No hay partidos en vivo.");
+            return;
+        }
 
-        liveMatches.forEach(match => {
-            liveContainer.innerHTML += createMatchCard(match);
-        });
+        const liveStates = ["LIVE", "IN_PLAY", "PAUSED"];
 
-    }
+        const liveMatches = matches.filter(m => liveStates.includes(m.status));
+        const otherMatches = matches.filter(m => !liveStates.includes(m.status));
 
-    if (otherMatches.length === 0) {
+        liveContainer.innerHTML = liveMatches.length === 0
+            ? emptyState("fa-solid fa-tower-broadcast", "No hay partidos en vivo en este momento.")
+            : liveMatches.map((m, i) => createMatchCard(m, i)).join("");
 
-        calendarContainer.innerHTML = `<h2>No hay partidos.</h2>`;
+        calendarContainer.innerHTML = otherMatches.length === 0
+            ? emptyState("fa-regular fa-calendar-xmark", "No hay partidos.")
+            : otherMatches.map((m, i) => createMatchCard(m, i)).join("");
+    },
 
-    } else {
+    renderStandings(data) {
 
-        otherMatches.forEach(match => {
-            calendarContainer.innerHTML += createMatchCard(match);
-        });
+        const container = document.getElementById("standingsContainer");
 
-    }
+        const table = data && data.standings
+            ? data.standings.find(s => s.type === "TOTAL")
+            : null;
 
-},
-renderStandings(data) {
+        if (!table) {
+            container.innerHTML = emptyState("fa-solid fa-list-ol", "Clasificación no disponible.");
+            return;
+        }
 
-    const container = document.getElementById("standingsContainer");
-
-    container.innerHTML = "";
-
-    if (!data.standings) {
-        container.innerHTML = "<h2>No disponible</h2>";
-        return;
-    }
-
-    const table = data.standings.find(s => s.type === "TOTAL");
-
-    if (!table) {
-        container.innerHTML = "<h2>No disponible</h2>";
-        return;
-    }
-
-    let html = `
-<div class="table-container">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>#</th>
-<th>Equipo</th>
-<th>PTS</th>
-<th>PJ</th>
-<th>G</th>
-<th>E</th>
-<th>P</th>
-<th>GF</th>
-<th>GC</th>
-<th>DG</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-`;
-
-    table.table.forEach(team => {
-        html += createStandingRow(team);
-    });
-
-    html += `
-</tbody>
-
-</table>
-
+        container.innerHTML = `
+<div class="table-container fade-in">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Equipo</th>
+                <th>PTS</th>
+                <th>PJ</th>
+                <th>G</th>
+                <th>E</th>
+                <th>P</th>
+                <th>GF</th>
+                <th>GC</th>
+                <th>DG</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${table.table.map(createStandingRow).join("")}
+        </tbody>
+    </table>
+    <div class="legend">
+        <span><i style="background:var(--info)"></i>Champions League</span>
+        <span><i style="background:var(--warning)"></i>Europa League</span>
+        <span><i style="background:var(--success)"></i>Conference League</span>
+        <span><i style="background:var(--live)"></i>Descenso</span>
+    </div>
 </div>
 `;
+    },
 
-    container.innerHTML = html;
-
-},
     renderScorers(data) {
 
         const container = document.getElementById("scorersContainer");
 
-        container.innerHTML = "";
-
-        if (!data.scorers) {
-
-            container.innerHTML = "<h2>No disponible</h2>";
-
+        if (!data || !data.scorers || data.scorers.length === 0) {
+            container.innerHTML = emptyState("fa-solid fa-futbol", "Goleadores no disponibles.");
             return;
-
         }
 
-        let html = `
-<div class="table-container">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>#</th>
-<th>Jugador</th>
-<th>Equipo</th>
-<th>Goles</th>
-
-</tr>
-
-</thead>
-
-<tbody>
-`;
-
-        data.scorers.forEach((player, index) => {
-
-            html += createScorerRow(player, index + 1);
-
-        });
-
-        html += `
-</tbody>
-
-</table>
-
+        container.innerHTML = `
+<div class="table-container fade-in">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Jugador</th>
+                <th style="text-align:left">Equipo</th>
+                <th>Goles</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${data.scorers.map((p, i) => createScorerRow(p, i + 1)).join("")}
+        </tbody>
+    </table>
 </div>
 `;
-
-        container.innerHTML = html;
-
     }
 
 };
